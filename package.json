@@ -1,0 +1,14 @@
+{
+  "devDependencies": {
+    "serverless": "^2.68.0"
+  },
+  "name": "appconfigspike",
+  "version": "1.0.0",
+  "dependencies": {
+  },
+  "scripts": {
+    "sls": "serverless"
+  },
+  "author": "",
+  "description": ""
+}
