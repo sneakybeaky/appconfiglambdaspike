@@ -1,6 +1,7 @@
 {
   "devDependencies": {
-    "serverless": "^2.68.0"
+    "serverless": "^2.68.0",
+    "serverless-go-build": "^0.0.6"
   },
   "name": "appconfigspike",
   "version": "1.0.0",

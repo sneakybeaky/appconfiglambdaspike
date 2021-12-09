@@ -1,0 +1,29 @@
+service: appconfigspike
+frameworkVersion: '2'
+
+provider:
+  name: aws
+  stage: dev
+  runtime: go1.x
+  lambdaHashingVersion: 20201221
+  region: eu-west-2
+
+custom:
+  go-build:
+    awsbuildPrefix: 'GOOS=linux GOARCH=amd64 '
+
+package:
+  individually: true
+
+functions:
+  hello:
+    handler: hello/main.go
+    events:
+      - httpApi:
+          path: /hello
+          method: get
+
+plugins:
+  - serverless-go-build
+
+
