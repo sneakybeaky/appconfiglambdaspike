@@ -7,4 +7,4 @@ clean:
 	rm -rf ./bin
 
 deploy:
-	aws-vault exec ninedemons-serverless -- npx sls deploy --verbose
+	aws-vault exec ninedemons-admin_role -- npx sls deploy --verbose

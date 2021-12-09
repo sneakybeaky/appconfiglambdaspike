@@ -1,4 +1,4 @@
-module pprospike
+module appconfigspike
 
 go 1.17
 
