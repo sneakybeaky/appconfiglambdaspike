@@ -40,11 +40,10 @@ package:
 functions:
   hello:
     handler: bootstrap
-    architecture: arm64
     package:
       artifact: bin/hello.zip
-#    layers:
-#      - arn:aws:lambda:eu-west-2:282860088358:layer:AWS-AppConfig-Extension:47
+    layers:
+      - arn:aws:lambda:eu-west-2:282860088358:layer:AWS-AppConfig-Extension:47
     events:
       - httpApi:
           path: /hello
