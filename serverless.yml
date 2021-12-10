@@ -12,7 +12,7 @@ provider:
   iamRoleStatements:
     - Effect: "Allow"
       Action:
-        - appconfig:GetConfiguration
+        - appconfig:*
       Resource:
 #        - !Sub 'arn:aws:appconfig:${AWS::Region}:${AWS::AccountId}:application/${FeatureFlagApplication}'
 #        - !Sub 'arn:aws:appconfig:${AWS::Region}:${AWS::AccountId}:application/${FeatureFlagApplication}/environment/${FeatureFlagEnvironment}'
@@ -29,11 +29,6 @@ provider:
     CONFIGURATION: "feature-flag-app-profile-${self:provider.stage}"
     STAGE: ${self:provider.stage}
 
-custom:
-  go-build:
-    awsbuildPrefix: 'GOOS=linux '
-    runtime: "provided.al2"
-
 package:
   individually: true
 
@@ -48,9 +43,6 @@ functions:
       - httpApi:
           path: /hello
           method: get
-
-plugins:
-#  - serverless-go-build
 
 resources:
   Resources:
