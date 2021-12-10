@@ -3,7 +3,7 @@ frameworkVersion: '2'
 
 provider:
   name: aws
-  runtime: go1.x
+  runtime: provided.al2
   lambdaHashingVersion: 20201221
   region: eu-west-2
   stage: ${opt:stage, 'dev'}
@@ -14,9 +14,10 @@ provider:
       Action:
         - appconfig:GetConfiguration
       Resource:
-        - !Sub 'arn:aws:appconfig:${AWS::Region}:${AWS::AccountId}:application/${FeatureFlagApplication}'
-        - !Sub 'arn:aws:appconfig:${AWS::Region}:${AWS::AccountId}:application/${FeatureFlagApplication}/environment/${FeatureFlagEnvironment}'
-        - !Sub 'arn:aws:appconfig:${AWS::Region}:${AWS::AccountId}:application/${FeatureFlagApplication}/configurationprofile/${FeatureFlagAppConfigProfile}'
+#        - !Sub 'arn:aws:appconfig:${AWS::Region}:${AWS::AccountId}:application/${FeatureFlagApplication}'
+#        - !Sub 'arn:aws:appconfig:${AWS::Region}:${AWS::AccountId}:application/${FeatureFlagApplication}/environment/${FeatureFlagEnvironment}'
+#        - !Sub 'arn:aws:appconfig:${AWS::Region}:${AWS::AccountId}:application/${FeatureFlagApplication}/configurationprofile/${FeatureFlagAppConfigProfile}'
+        - '*'
   environment:
     # app config specific
     AWS_APPCONFIG_EXTENSION_POLL_INTERVAL_SECONDS: 30
@@ -30,23 +31,27 @@ provider:
 
 custom:
   go-build:
-    awsbuildPrefix: 'GOOS=linux GOARCH=amd64 '
+    awsbuildPrefix: 'GOOS=linux '
+    runtime: "provided.al2"
 
 package:
   individually: true
 
 functions:
   hello:
-    handler: hello/main.go
-    layers:
-      - arn:aws:lambda:eu-west-2:282860088358:layer:AWS-AppConfig-Extension:47
+    handler: bootstrap
+    architecture: arm64
+    package:
+      artifact: bin/hello.zip
+#    layers:
+#      - arn:aws:lambda:eu-west-2:282860088358:layer:AWS-AppConfig-Extension:47
     events:
       - httpApi:
           path: /hello
           method: get
 
 plugins:
-  - serverless-go-build
+#  - serverless-go-build
 
 resources:
   Resources:
